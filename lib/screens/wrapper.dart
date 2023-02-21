@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:test_1/screens/models/my_user.dart';
-
-import 'authenticate/authenticate.dart';
+import 'package:test_1/services/auth_service.dart';
+import 'authenticate/sign_in.dart';
 import 'home/home.dart';
-import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    final user = Provider.of<MyUser?>(context);
-    print(user);
+    Authentication auth = Authentication();
 
     // return either the Home or Authenticate widget
-    if (user == null){
-      return Authenticate();
+    if (auth.auth.currentUser?.uid == null) {
+      return const SignIn();
     } else {
-      return Home();
+      return const Home();
     }
-
   }
 }
